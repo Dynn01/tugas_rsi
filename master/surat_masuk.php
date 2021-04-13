@@ -9,38 +9,11 @@
            
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header"><b>Hello</b></li>
-            <li class="active">
-              <a href="logout.php">
-              <span>Log Out</span>
-              </a>
-            </li>
-            <li class="active" >
-              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=user">
-                <span>User</span>  
-              </a>
-            </li>
-            <div class="dropdown-header">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Master &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Unit" style="color: black;">Unit</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Jenis" style="color: black;">Jenis</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Instansi" style="color: black;">Instansi</a></li>
-              </ul>
-            </div> 
-            <div class="dropdown-menu">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                Transaksi &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_masuk" style="color: black;">Surat Masuk</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_keluar" style="color: black;">Surat Keluar</a></li>
-              </ul>
-            </div> 
-           </ul>
+
+           <?php
+              include 'menu.php';
+            ?>
+
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -87,18 +60,28 @@
                 <form action="aksiSurat_masuk.php?sender=edit" method="POST">
                   <div class="box-body">
                         <div class="row">
-                <div class="col-md-12 form-group">
+                    <div class="col-md-12 form-group">
+                    <label>Tanggal Surat</label>
+                    <br>
+                    <input type="text" name="tglsurat" value="<?php echo $row['tglsurat'];?>" id="date" required="">
+                    </div>
+                    <div class="col-md-12 form-group">
                     <label>Nomor Surat</label>
                     <input readonly="" type="hidden" name="id" value="<?php echo $row['PK'];?>" class="form-control" placeholder="Enter..." required="">
                     <input type="text" name="no_surat" value="<?php echo $row['no_surat'];?>" class="form-control" placeholder="Enter..." required="">
                     </div>  
                     <div class="col-md-12 form-group">
-                    <label>Kode Instansi</label>
-                    <input type="text" name="kd_inst" value="<?php echo $row['kd_inst'];?>" class="form-control" placeholder="Enter..." required="">
+                    <label>Perihal</label>
+                    <input type="text" name="perihal" value="<?php echo $row['perihal'];?>" class="form-control" placeholder="Enter..." required="">
                     </div>
                     <div class="col-md-12 form-group">
-                    <label>Tanggal Surat</label>
-                    <input type="text" name="tglsurat" value="<?php echo $row['tglsurat'];?>" class="form-control" placeholder="Enter..." required="">
+                    <label>Nama Instansi</label>
+                    <select class="form-control" name="kd_inst">
+                      <?php $result = mysqli_query($config, "SELECT * FROM instansi");
+                      while($row=mysqli_fetch_assoc($result)){ ?>
+                          <option value="<?php echo $row['kd_inst']; ?>"><?php echo $row['nm_inst']; ?></option>
+                          <?php } ?>
+                    </select>
                     </div>
                  <div class="col-md-12 form-group"> 
                    <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
@@ -115,7 +98,7 @@
           <!-- Default box -->
           <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"> <a href="#" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Tambah</a></h3>
+                <h3 class="box-title"> <a href="" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Tambah</a></h3>
               <div class="box-tools pull-right">
                  </div>
             </div>
@@ -125,7 +108,8 @@
                       <tr> 
                         <th>#</th>
                         <th>No. Surat</th>
-                        <th>Kode Instansi</th>
+                        <th>Nama Instansi</th>
+                        <th>perihal</th>
                         <th>Tanggal Surat</th>
                         <th>Aksi</th>
                          
@@ -133,7 +117,7 @@
                     </thead>
                     <tbody>
                     <?php
-                        $sql="SELECT  * FROM surat_masuk";
+                        $sql="SELECT pl.PK, no_surat, perihal, nm_inst, tglsurat FROM surat_masuk pl, instansi pn WHERE pl.kd_inst = pn.kd_inst;";
                         $no=1;
                         if (!$result=  mysqli_query($config, $sql)){
                         die('Error:'.mysqli_error($config));
@@ -145,8 +129,9 @@
                         <tr>
                             <td><?php echo $no ;?></td>
                             <td><?php echo $row['no_surat'];?></td>
-                            <td><?php echo $row['kd_inst'];?></td>
-                            <td><?php  echo $row['tglsurat'];?></td> 
+                            <td><?php echo $row['nm_inst'];?></td>
+                            <td><?php echo $row['perihal'];?></td>
+                            <td><?php  echo tanggal($row['tglsurat']);?></td> 
                             <td>
                                 <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?page=surat_masuk&id=<?php echo $row['PK'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> 
                                 <a href="aksiSurat_masuk.php?sender=hapus&id=<?php echo $row['PK']; ?>" class="btn btn-danger"><li class="fa fa-trash-o"></li> Hapus</a> 
@@ -188,17 +173,29 @@
  
     <div class="form-group">
       <label>Nomor Surat</label>
-      <input type="text" name="no_surat" class="form-control" required="" placeholder="Enter ...">
+      <input type="text" name="no_surat" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
     </div>
- 
     <div class="form-group">
-      <label>Kode Instansi</label>
-      <textarea type="text" name="kd_inst" class="form-control" placeholder="Enter ..."></textarea> 
+    <label>Nama Instansi</label>
+      <select class="form-control" name="kd_inst">
+    <?php $result = mysqli_query($config, "SELECT * FROM instansi");
+    while($row=mysqli_fetch_assoc($result)){ ?>
+        <option value="<?php echo $row['kd_inst']; ?>"><?php echo $row['nm_inst']; ?></option>
+        <?php } ?>
+      </select>
+    </div> 
+    <div class="form-group">
+      <label>Perihal</label>
+      <input type="text" name="perihal" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
     </div>
     <div class="form-group">
       <label>Tanggal Surat</label>
-      <textarea type="text" name="tglsurat" class="form-control" placeholder="Enter ..."></textarea> 
+      <br>
+      <input type="text" name="tglsurat" id="date" autocomplete=off> 
     </div>
+
+
+
  
 </div>
 <div class="modal-footer">

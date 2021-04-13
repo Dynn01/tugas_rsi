@@ -14,13 +14,14 @@ include 'koneksi.php';
 $g=$_GET['sender'];
 if($g=='tambah')
 {
-    $sql="INSERT INTO user (nama_pegawai, password)
+    $sql="INSERT INTO user (nama_pegawai, password, level)
         VALUES
         ('$_POST[nama_pegawai]',
-         '$_POST[password]')";   
+         '$_POST[password]',
+         '$_POST[level]')";   
         if (mysqli_query($config, $sql)){ 
         echo '<script LANGUAGE="JavaScript">
-            alert("Instansi baru dengan nama instansi :('.$_POST[nama_pegawai].') Tersimpan")
+            alert("user baru dengan nama :('.$_POST[nama_pegawai].') Tersimpan")
             window.location.href="index.php?page=user";
             </script>'; 
     }
@@ -35,7 +36,8 @@ else
     {
         mysqli_query($config,"UPDATE user SET PK='$_POST[id]',
             nama_pegawai='$_POST[nama_pegawai]',
-                password='$_POST[password]' WHERE PK='$_POST[id]'");
+            password='$_POST[password]',
+            level='$_POST[level]' WHERE PK='$_POST[id]'");
          echo '<script LANGUAGE="JavaScript">
             alert("user dengan nama Pegawai :('.$_POST[nama_pegawai].') Di Update")
             window.location.href="index.php?page=user";

@@ -14,9 +14,10 @@ include 'koneksi.php';
 $g=$_GET['sender'];
 if($g=='tambah')
 {
-    $sql="INSERT INTO instansi (nm_inst, status)
+    $sql="INSERT INTO instansi (kd_inst, nm_inst, status)
         VALUES
-        ('$_POST[nm_inst]',
+        ('$_POST[kd_inst]',
+         '$_POST[nm_inst]',
          '$_POST[status]')";   
         if (mysqli_query($config, $sql)){ 
         echo '<script LANGUAGE="JavaScript">
@@ -34,8 +35,9 @@ else
     if($g=='edit')
     {
         mysqli_query($config,"UPDATE instansi SET PK='$_POST[id]',
+            kd_inst='$_POST[kd_inst]',
             nm_inst='$_POST[nm_inst]',
-                status='$_POST[status]' WHERE PK='$_POST[id]'");
+            status='$_POST[status]' WHERE PK='$_POST[id]'");
          echo '<script LANGUAGE="JavaScript">
             alert("Instansi dengan nama instansi :('.$_POST[nm_inst].') Di Update")
             window.location.href="index.php?page=Instansi";

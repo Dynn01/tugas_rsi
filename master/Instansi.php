@@ -9,38 +9,8 @@
            
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header"><b>Hello Lemon Leonhart</b></li>
-            <li class="active">
-              <a href="logout.php">
-              <span>Log Out</span>
-              </a>
-            </li>
-            <li class="active" >
-              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=user">
-                <span>User</span>  
-              </a>
-            </li> 
-            <div class="dropdown-header">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Master &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Unit" style="color: black;">Unit</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Jenis" style="color: black;">Jenis</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Instansi" style="color: black;">Instansi</a></li>
-              </ul>
-            </div>
-            <div class="dropdown-header">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Transaksi &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_masuk" style="color: black;">Surat Masuk</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_keluar" style="color: black;">Surat Keluar</a></li>
-              </ul>
-            </div>  
-           </ul>
+         <?php include 'menu.php'; ?>
+
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -88,11 +58,13 @@
                   <div class="box-body">
                         <div class="row">
                 <div class="col-md-12 form-group">
-                    <label>Nama Instansi</label>
+                    <label>Kode Instansi</label>
                     <input readonly="" type="hidden" name="id" value="<?php echo $row['PK'];?>" class="form-control" placeholder="Enter..." required="">
+                    <input type="text" name="kd_inst" value="<?php echo $row['kd_inst'];?>" class="form-control" placeholder="Enter..." required="">
+                    <label>Nama Instansi</label>
                     <input type="text" name="nm_inst" value="<?php echo $row['nm_inst'];?>" class="form-control" placeholder="Enter..." required="">
                     </div>  
-                     <div class="col-md-12 form-group">
+                    <div class="col-md-12 form-group">
                          <label>status</label>
                          <textarea class="form-control" placeholder="Enter..." name="status" type="text"><?php echo $row['status'];?></textarea>
                     </div>
@@ -120,7 +92,8 @@
                     <thead>
                       <tr> 
                         <th>#</th>
-                        <th>nama_inst</th>
+                        <th>kode Instansi</th>
+                        <th>nama instansi</th>
                         <th>status</th>
                         <th>Aksi</th>
                          
@@ -139,8 +112,9 @@
                     
                         <tr>
                             <td><?php echo $no ;?></td>
+                            <td><?php echo $row['kd_inst'];?></td>
                             <td><?php echo $row['nm_inst'];?></td>
-                             <td><?php  echo $row['status'];?></td> 
+                            <td><?php  echo $row['status'];?></td> 
                             <td>
                                 <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?page=Instansi&id=<?php echo $row['PK'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> 
                                 <a href="aksiInstansi.php?sender=hapus&id=<?php echo $row['PK']; ?>" class="btn btn-danger"><li class="fa fa-trash-o"></li> Hapus</a> 
@@ -181,13 +155,18 @@
  <!--Content-->
  
     <div class="form-group">
+      <label>Kode Instansi</label>
+      <input type="text" name="kd_inst" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
+    </div>
+
+    <div class="form-group">
       <label>Nama Instansi</label>
-      <input type="text" name="nm_inst" class="form-control" required="" placeholder="Enter ...">
+      <input type="text" name="nm_inst" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
     </div>
  
     <div class="form-group">
       <label>status</label>
-      <textarea type="text" name="status" class="form-control" placeholder="Enter ..."></textarea> 
+      <textarea type="text" name="status" class="form-control" placeholder="Enter ..." autocomplete=off></textarea> 
     </div>
  
 </div>

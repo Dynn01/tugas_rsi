@@ -1,29 +1,29 @@
 <?php
 
+
 session_start();
 
-$nama=isset($_SESSION['role']);
-
-if($nama && $nama=='admin')
-{
-    $hello = "Hello ".$_SESSION['role']; 
-} else {
-    header('Location:login.php');
+if (empty($_SESSION['username'])) {
+  header('location:login.php');
 }
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 error_reporting(0);
 include 'koneksi.php';
+include 'fungsi.php';
 $get=$_GET['page'];
- 
-if ( empty($get))
-{
-   include ('master/Jenis.php');	
-}
+$g = $_GET['level']; 
 
+if ($g=='admin')
+{
+    include ('master/user.php');	
+}
+elseif ($g=='pegawai') 
+{
+    include ('master/surat_masuk.php');
+}
 elseif ($get=='Jenis')
 {
   include ('master/Jenis.php');
@@ -48,4 +48,21 @@ elseif ($get=='surat_keluar')
 {
   include ('master/surat_keluar.php');
 }
+elseif ($get=='laporan_out')
+ {
+  include ('laporan_out.php');
+}
+elseif ($get=='report_out')
+ {
+  include ('master/report_out.php');
+}
+elseif ($get=='report_in')
+ {
+  include ('master/report_in.php');
+}
+elseif ($get=='laporan_in')
+ {
+  include ('laporan_in.php');
+}
+
 ?>

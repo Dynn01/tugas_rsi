@@ -1,31 +1,4 @@
-<?php 
 
-include 'koneksi.php';
-
-$result=mysqli_query($config, 'SELECT * FROM user');
-$row=mysqli_fetch_row($result);
-
-session_start();
-
-$action = isset($_POST['action']) ? $_POST['action'] : false;
-
-if ($action == 'login') {
-    if ($_POST['username'] == "$row[1]" && $_POST['password'] == "$row[2]") {
-        $_SESSION['role']='Admin';
-        header('Location: index.php');
-    } else {
-        $error="Username dan Password Anda Salah";
-    }
-}else
-{
-    if (isset($_SESSION['role']) && $_SESSION['role']=='Admin') {
-        header('Location: index.php');
-    }
-}
-
-// var_dump($_POST['username']);
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,10 +19,10 @@ if ($action == 'login') {
                   <?php echo $error; ?>
                  </div>
                 <?php endif; ?>
-                <form action="login.php" method="POST">
+                <form action="cek_login.php" method="POST">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Username</label>
-                        <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+                        <input type="text" class="form-control" name="username" aria-describedby="emailHelp" autocomplete=off>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>

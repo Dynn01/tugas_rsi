@@ -9,38 +9,10 @@
            
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header"><b>Hello Lemon Leonhart</b></li>
-            <li class="active">
-              <a href="logout.php">
-              <span>Log Out</span>
-              </a>
-            </li> 
-            <li class="active" >
-              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=user">
-                <span>User</span>  
-              </a>
-            </li> 
-            <div class="dropdown-header">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Master &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Unit" style="color: black;">Unit</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Jenis" style="color: black;">Jenis</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=Instansi" style="color: black;">Instansi</a></li>
-              </ul>
-            </div>
-            <div class="dropdown-header">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Transaksi &nbsp; &emsp; &raquo;
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_masuk" style="color: black;">Surat Masuk</a></li>
-                <li><a class="dropdown-item" href="<?php $_SERVER[SCRIPT_NAME];?>?page=surat_keluar" style="color: black;">Surat Keluar</a></li>
-              </ul>
-            </div>  
-           </ul>
+
+           <?php
+                include 'menu.php';
+            ?>
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -88,10 +60,12 @@
                   <div class="box-body">
                         <div class="row">
                 <div class="col-md-12 form-group">
-                    <label>Nama Unit</label>
+                    <label>Kode Unit</label>
                     <input readonly="" type="hidden" name="id" value="<?php echo $row['PK'];?>" class="form-control" placeholder="Enter..." required="">
+                    <input type="text" name="kd_unit" value="<?php echo $row['kd_unit'];?>" class="form-control" placeholder="Enter..." required="">
+                    <label>Nama Unit</label>
                     <input type="text" name="nm_unit" value="<?php echo $row['nm_unit'];?>" class="form-control" placeholder="Enter..." required="">
-                    </div>  
+                </div>  
                  <div class="col-md-12 form-group"> 
                    <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
                  </div>
@@ -116,6 +90,7 @@
                     <thead>
                       <tr> 
                         <th>#</th>
+                        <th>Kode Unit</th>
                         <th>Nama Unit</th>
                         <th>Aksi</th>
                          
@@ -134,6 +109,7 @@
                     
                         <tr>
                             <td><?php echo $no ;?></td>
+                            <td><?php echo $row['kd_unit'];?></td>
                             <td><?php echo $row['nm_unit'];?></td>
                             <td>
                                 <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?page=Unit&id=<?php echo $row['PK'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> 
@@ -175,8 +151,12 @@
  <!--Content-->
  
     <div class="form-group">
+      <label>Kode Unit</label>
+      <input type="text" name="kd_unit" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
+    </div>
+    <div class="form-group">
       <label>Nama Unit</label>
-      <input type="text" name="nm_unit" class="form-control" required="" placeholder="Enter ...">
+      <input type="text" name="nm_unit" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
     </div>
 </div>
 <div class="modal-footer">

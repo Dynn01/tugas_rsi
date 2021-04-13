@@ -11,22 +11,12 @@
            
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header"><b>Hello Lemon Leonhart</b></li>
-            <li class="active">
-              <a href="logout.php">
-              <span>Log Out</span>
-              </a>
-            </li> 
-            <li class="active" >
-              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=user">
-                <span>User</span>  
-              </a>
-            </li> 
-            <?php include 'master.php'; ?>
-            <?php include 'transaksi.php'; ?>  
-           </ul>
-        </section>
+         
+           <?php
+              include 'menu.php';
+            ?>
+        
+          </section>
         <!-- /.sidebar -->
       </aside>
       
@@ -161,7 +151,7 @@
  
     <div class="form-group">
       <label>Jenis</label>
-      <input type="text" name="jenis" class="form-control" required="" placeholder="Enter ...">
+      <input type="text" name="jenis" class="form-control" required="" placeholder="Enter ..." autocomplete=off>
     </div>
  
 </div>

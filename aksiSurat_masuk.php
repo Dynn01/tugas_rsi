@@ -14,11 +14,13 @@ include 'koneksi.php';
 $g=$_GET['sender'];
 if($g=='tambah')
 {
-    $sql="INSERT INTO surat_masuk (no_surat, kd_inst, tglsurat)
+    $sql="INSERT INTO surat_masuk (no_surat, kd_inst, perihal, tglsurat, tgltransaksi)
         VALUES
         ('$_POST[no_surat]',
          '$_POST[kd_inst]',
-         '$_POST[tglsurat]')";   
+         '$_POST[perihal]',
+         '$_POST[tglsurat]',
+          curdate())";   
         if (mysqli_query($config, $sql)){ 
         echo '<script LANGUAGE="JavaScript">
             alert("Surat masuk baru telah Tersimpan")
@@ -37,6 +39,7 @@ else
         mysqli_query($config,"UPDATE surat_masuk SET PK='$_POST[id]',
             no_surat='$_POST[no_surat]',
                 kd_inst='$_POST[kd_inst]',
+                perihal='$_POST[perihal]',
                 tglsurat='$_POST[tglsurat]' WHERE PK='$_POST[id]'");
          echo '<script LANGUAGE="JavaScript">
             alert("Surat masuk telah Di Update")

@@ -14,9 +14,10 @@ include 'koneksi.php';
 $g=$_GET['sender'];
 if($g=='tambah')
 {
-    $sql="INSERT INTO unit (nm_unit)
+    $sql="INSERT INTO unit (kd_unit, nm_unit)
         VALUES
-        ('$_POST[nm_unit]')";   
+        ('$_POST[kd_unit]',
+         '$_POST[nm_unit]')";   
         if (mysqli_query($config, $sql)){ 
         echo '<script LANGUAGE="JavaScript">
             alert("Unit baru dengan nama unit :('.$_POST[nm_unit].') Tersimpan")
@@ -33,6 +34,7 @@ else
     if($g=='edit')
     {
         mysqli_query($config,"UPDATE unit SET PK='$_POST[id]',
+            kd_unit='$_POST[kd_unit]', 
             nm_unit='$_POST[nm_unit]' WHERE PK='$_POST[id]'");
          echo '<script LANGUAGE="JavaScript">
             alert("Unit dengan nama unit :('.$_POST[nm_unit].') Di Update")
